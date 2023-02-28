@@ -18,6 +18,23 @@
 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
     Upload
 </button>
+<form [formGroup]="form" (ngSubmit)="upload()">
+    <div class="form-check">
+        <label> Choose your gender </label>
+        <br/>
+        <input class="form-check-input"  type="radio" name="document" value="contrat" formControlName="document">
+        <label class="form-check-label">Contrat</label>
+        <br/>
+        <input class="form-check-input"  type="radio" name="document" value="tier" formControlName="document">
+        <label class="form-check-label">Tier</label>
+        <br/>
+        <input class="form-check-input"  type="radio" name="document" value="dossier" formControlName="document">
+        <label class="form-check-label">Dossier</label>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+
+</form>
 
 <div class="alert alert-light" role="alert">{{ message }}</div>
 
@@ -31,7 +48,7 @@
         *ngFor="let column of columnsHeader | async"
     >
         <li class="list-group-item">
-            {{ column }}
+            {{ column.nom }}
         </li>
     </ul>
 </div>  

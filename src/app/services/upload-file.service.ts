@@ -11,12 +11,12 @@ export class UploadFileService {
   constructor(private http: HttpClient) { }
 
   //Upload a csv file
-  upload(file: File): Observable<HttpEvent<any>>{
+  upload(file: File , data: any): Observable<HttpEvent<any>>{
       const formData: FormData = new FormData();
 
       formData.append('file',file);
 
-      const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
+      const req = new HttpRequest('POST', `${this.baseUrl}/${data}/upload`, formData, {
         reportProgress: true,
         responseType: 'json'
       });
@@ -25,8 +25,8 @@ export class UploadFileService {
   }
 
   //Fetch the data from the csv file
-  getTutorials(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/tutorials`);
+  getAllObjects(data: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${data}`);
   }
 
   getFiles(): Observable<any> {
@@ -39,7 +39,7 @@ export class UploadFileService {
     formData.append('file',file);
 
     const req = new HttpRequest('GET',`${this.baseUrl}/header`,formData);
-    return this.http.get(`${this.baseUrl}/header`);
+    return this.http.request(req);
   }
   
 }
