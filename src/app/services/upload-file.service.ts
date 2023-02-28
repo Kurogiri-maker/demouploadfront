@@ -26,7 +26,7 @@ export class UploadFileService {
 
   //Fetch the data from the csv file
   getTutorials(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/tutorials`);
+    return this.http.get(`${this.baseUrl}/contrats`);
   }
 
   getFiles(): Observable<any> {

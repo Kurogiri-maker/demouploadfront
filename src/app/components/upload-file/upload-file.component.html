@@ -1,37 +1,60 @@
-<div *ngIf="currentFile" class="progress">
-    <div
-        class="progress-bar progress-bar-info progress-bar-striped"
-        role="progressbar"
-        attr.aria-valuemin="{{progress}}"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        [ngStyle]="{ width: progress +'%'}"
-    >
-        {{progress}}%
+<div>
+    <div class="text-center">
+      <div
+      class="progress-bar progress-bar-info progress-bar-striped"
+      role="progressbar"
+      attr.aria-valuemin="{{progress}}"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [ngStyle]="{ width: progress +'%'}"
+  >
+      {{progress}}%
+  </div>
+
+      <form class="row g-3 m-1 justify-content-center" (ngSubmit)="fetchCsvFromURL()">
+        <div class="col-auto">
+          <input
+            class="form-control"
+            name="csvFilePath"
+            type="text"
+            placeholder="assets/sample.csv"
+            [(ngModel)]="csvFilePath"
+          />
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary"  type="submit">Fetch CSV</button>
+        </div>
+      </form>
+  
+      <form class="row g-3 m-1 justify-content-center">
+        <div class="col-auto">
+          <input type="file" #fileImportInput name="File Upload" id="csvFileUpload" (change)="fileChangeListener($event)"
+      accept=".csv" />
+        </div>
+      </form>
     </div>
-</div>
-
-<label class=""btn btn-default>
-    <input type="file" (change)="selectFile($event)"/>
-</label>
-
-<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-    Upload
-</button>
-
-<div class="alert alert-light" role="alert">{{ message }}</div>
-
-
- <div class="card">
-    <div class="card-header">
-        Header
+  
+    <!-- <p>{{this.headers}}</p>
+    <p *ngFor="let record of records">
+      {{record}}
+    </p> -->
+  
+    <div class="row mt-3">
+      <table class="table table-bordered">
+        <!-- <th> -->
+        <thead>
+          <tr>
+            <td class="text-center" *ngFor="let header of headers">
+              <b>{{header}}</b>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of records">
+            <td class="text-center" *ngFor="let col of row">{{col}}</td>
+          </tr>
+        </tbody>
+        <!-- </th> -->
+      </table>
     </div>
-    <ul
-        class="list-group list-group-flush"
-        *ngFor="let column of columnsHeader | async"
-    >
-        <li class="list-group-item">
-            {{ column }}
-        </li>
-    </ul>
-</div>  
+  </div>
